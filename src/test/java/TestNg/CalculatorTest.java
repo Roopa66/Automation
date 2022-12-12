@@ -1,21 +1,40 @@
 package TestNg;
 
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 public class CalculatorTest {
 	Calculator cltr = new Calculator();
 
-	@Test
-	public void add1Test() {
-		Assert.assertEquals(10, cltr.add1(6, 4));
+	@Test(dataProvider ="dpAdd")
+	public void add1Test(int exp, int a, int b) {
+		
+		Assert.assertEquals(exp, cltr.add1(a, b));
 
 	}
 
 	@Test
 	public void sub1Test() {
+		System.out.println("Thread value" +Thread.currentThread().getId());
 		Assert.assertEquals(2, cltr.sub1(6, 4));
 	}
+	
+	@DataProvider(name = "dpAdd")
+	public Object [][] getData() {
+		Object[][] t1 = new Object[][] {
+			
+			{10,5,5},
+			{12,5,7},
+			{60,30,30},
+			{22,11,11},
+			{3,34,5},
+			{23,20,4}
+			
+		};
+			return t1;
+		}
+	
 
 	@Test
 	public void all_Assertions_Test() {
